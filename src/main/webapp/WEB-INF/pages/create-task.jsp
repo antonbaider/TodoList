@@ -20,6 +20,9 @@
     <c:if test="${param.error eq 'duplicate'}">
         <p class="error">Error: Task with a given name already exists!. Please choose a different name.</p>
     </c:if>
+    <c:if test="${param.error eq 'invalid'}">
+        <p class="error">Invalid input</p>
+    </c:if>
     <form action="/create-task" method="post">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br>

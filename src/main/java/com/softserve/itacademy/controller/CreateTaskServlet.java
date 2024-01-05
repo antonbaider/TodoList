@@ -38,9 +38,13 @@ public class CreateTaskServlet extends HttpServlet {
                 Task newTask = new Task(name, priority);
 
                 if (taskRepository.create(newTask)) {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write("Task created successfully");
                     response.sendRedirect("/create-task?ok=success");
                     return;
                 } else {
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                    response.getWriter().write("Task with a given name already exists!");
                     response.sendRedirect("/create-task?error=duplicate");
                     return;
                 }
@@ -49,6 +53,6 @@ public class CreateTaskServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect("/error");
+        response.sendRedirect("/create-task?error=invalid");
     }
 }
