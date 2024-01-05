@@ -18,7 +18,7 @@
     <%@include file="header.html"%>
     <h2>Create a New Task</h2>
     <c:if test="${param.error eq 'duplicate'}">
-        <p class="error">Error: Task with the same name already exists. Please choose a different name.</p>
+        <p class="error">Error: Task with a given name already exists!. Please choose a different name.</p>
     </c:if>
     <form action="/create-task" method="post">
         <label for="name">Name:</label>
