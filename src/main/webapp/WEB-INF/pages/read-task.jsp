@@ -9,11 +9,26 @@
     </style>
 
 </head>
-<body>
+<body><h2>Read existing Task</h2>
 <table>
     <%@include file="header.html"%>
 
-
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Priority</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${task.id}</td>
+                <td>${task.title}</td>
+                <td>${task.priority}</td>
+            </tr>
+            </tbody>
+        </table>
 
 </body>
 </html>

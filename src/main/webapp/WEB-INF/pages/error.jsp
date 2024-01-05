@@ -11,8 +11,10 @@
 
 </head>
 <body>
-
-
-
+<table>
+    <%@include file="header.html" %>
+    <h1>Error</h1>
+    <p>${error}</p>
+</table>
 </body>
 </html>

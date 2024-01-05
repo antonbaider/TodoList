@@ -18,7 +18,7 @@
     <%@include file="header.html"%>
     <h2>Create a New Task</h2>
     <c:if test="${param.error eq 'duplicate'}">
-        <p class="error">Error: Task with a given name already exists!. Please choose a different name.</p>
+        <p class="error">Task with a given name already exists!</p>
     </c:if>
     <c:if test="${param.error eq 'invalid'}">
         <p class="error">Invalid input</p>
