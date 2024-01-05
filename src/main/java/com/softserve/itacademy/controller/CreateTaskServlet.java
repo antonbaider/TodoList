@@ -38,7 +38,7 @@ public class CreateTaskServlet extends HttpServlet {
                 Task newTask = new Task(name, priority);
 
                 if (taskRepository.create(newTask)) {
-                    response.sendRedirect("/tasks-list");
+                    response.sendRedirect("/create-task?ok=success");
                     return;
                 } else {
                     response.sendRedirect("/create-task?error=duplicate");
