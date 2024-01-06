@@ -17,15 +17,15 @@
 <body>
     <%@include file="header.html"%>
     <h2>Create a New Task</h2>
-    <c:if test="${param.error eq 'duplicate'}">
-        <p class="error">Task with a given name already exists!</p>
+    <c:if test="${not empty requestScope.errorMessage}">
+        <p class="error">${requestScope.errorMessage}</p>
     </c:if>
-    <c:if test="${param.error eq 'invalid'}">
-        <p class="error">Invalid input</p>
-    </c:if>
+<%--    <c:if test="${param.error eq 'invalid'}">--%>
+<%--        <p class="error">Invalid input</p>--%>
+<%--    </c:if>--%>
     <form action="/create-task" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
 
         <label for="priority">Priority:</label>
         <select id="priority" name="priority" required>
@@ -37,32 +37,32 @@
         <button type="submit">Create Task</button>
     </form>
 
-<c:if test="${param.ok eq 'success'}">
-    <table><p class="success">Task added successfully!</p>
-        <thead><div class="success">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Priority</th>
-        </tr></div>
-        </thead>
-        <tbody>
-        <% Task lastTask = TaskRepository.getTaskRepository().all().stream().reduce((first, second) -> second).orElse(null); %>
-        <% if (lastTask != null) { %>
+    <c:if test="${param.ok eq 'success'}">
+        <table><p class="success">Task added successfully!</p>
+            <thead><div class="success">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Priority</th>
+                </tr></div>
+            </thead>
+            <tbody>
+            <% Task lastTask = TaskRepository.getTaskRepository().all().stream().reduce((first, second) -> second).orElse(null); %>
+            <% if (lastTask != null) { %>
 
-        <tr><div class="success">
-            <td><%= lastTask.getId() %></td>
-            <td><%= lastTask.getTitle() %></td>
-            <td><%= lastTask.getPriority() %></td>
-        </div></tr>
+            <tr><div class="success">
+                <td><%= lastTask.getId() %></td>
+                <td><%= lastTask.getTitle() %></td>
+                <td><%= lastTask.getPriority() %></td>
+            </div></tr>
 
-        <% } else { %>
-        <tr>
-            <td colspan="3">No tasks available.</td>
-        </tr>
-        <% } %>
-        </tbody>
-    </table>
-</c:if>
+            <% } else { %>
+            <tr>
+                <td colspan="3">No tasks available.</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </c:if>
 </body>
 </html>

@@ -21,7 +21,7 @@
         <th>ID</th>
         <th>Title</th>
         <th>Priority</th>
-        <th>Operations</th>
+        <th COLSPAN="3">Operations</th>
     </tr>
 
     <%
@@ -36,7 +36,7 @@
             <a href="/read-task?id=<%=task.getId()%>">Read</a>
         </td>
         <td>
-            <a href="/update-task?id=<%=task.getId()%>">Update</a>
+            <a href="/edit-task?id=<%=task.getId()%>">Update</a>
         </td>
         <td>
             <a href="/delete-task?id=<%=task.getId()%>">Delete</a>

@@ -28,30 +28,30 @@ public class CreateTaskServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
+        response.setContentType("text/html;charset=UTF-8");
+        String name = request.getParameter("title");
         String priorityParam = request.getParameter("priority");
-
         if (name != null && !name.isEmpty() && priorityParam != null && !priorityParam.isEmpty()) {
             try {
                 Priority priority = Priority.valueOf(priorityParam.toUpperCase());
                 Task newTask = new Task(name, priority);
-
                 if (taskRepository.create(newTask)) {
                     response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write("Task created successfully");
+                    //response.getWriter().write("Task created successfully");
                     response.sendRedirect("/create-task?ok=success");
                     return;
                 } else {
-                    response.setStatus(HttpServletResponse.SC_CONFLICT);
-                    response.getWriter().write("Task with a given name already exists!");
-                    response.sendRedirect("/create-task?error=duplicate");
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write("value=\"" + name + "\"" +
+                                    "value=\"" + priorityParam + "\" selected" +
+                                    "Expected message : Task with a given name already exists!");
+                    request.setAttribute("errorMessage", "Task with a given name already exists!");
                     return;
                 }
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
-
-        response.sendRedirect("/create-task?error=invalid");
+        //request.setAttribute("errorMessage", "Invalid input");
     }
 }
