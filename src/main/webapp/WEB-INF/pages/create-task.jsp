@@ -24,8 +24,8 @@
         <p class="error">Invalid input</p>
     </c:if>
     <form action="/create-task" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
+        <label for="title">Name:</label>
+        <input type="text" id="title" name="title" required><br>
 
         <label for="priority">Priority:</label>
         <select id="priority" name="priority" required>

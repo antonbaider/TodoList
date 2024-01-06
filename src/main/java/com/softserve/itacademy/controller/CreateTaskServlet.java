@@ -28,22 +28,20 @@ public class CreateTaskServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
+        String title = request.getParameter("title");
         String priorityParam = request.getParameter("priority");
 
-        if (name != null && !name.isEmpty() && priorityParam != null && !priorityParam.isEmpty()) {
+        if (title != null && !title.isEmpty() && priorityParam != null && !priorityParam.isEmpty()) {
             try {
                 Priority priority = Priority.valueOf(priorityParam.toUpperCase());
-                Task newTask = new Task(name, priority);
+                Task newTask = new Task(title, priority);
 
                 if (taskRepository.create(newTask)) {
                     response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write("Task created successfully");
                     response.sendRedirect("/create-task?ok=success");
                     return;
                 } else {
                     response.setStatus(HttpServletResponse.SC_CONFLICT);
-                    response.getWriter().write("Task with a given name already exists!");
                     response.sendRedirect("/create-task?error=duplicate");
                     return;
                 }
