@@ -1,5 +1,7 @@
 package com.softserve.itacademy.model;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 public class Task {
     private int id;
     private String title;
@@ -22,7 +24,7 @@ public class Task {
     }
 
     public String getTitle() {
-        return title;
+        return StringEscapeUtils.escapeHtml4(title);
     }
 
     public void setTitle(String title) {

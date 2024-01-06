@@ -28,7 +28,7 @@
     <form action="/create-task" method="post">
         <div class="form-row">
             <div class="input-data">
-                <input type="text" id="title" name="title" value="${not empty param.title ? param.title : ''}" required><br>
+                <input type="text" id="title" maxlength="128" name="title" value="${not empty param.title ? param.title : ''}" required><br>
                 <div class="underline"></div>
                 <label for="title">Name:</label>
             </div>
