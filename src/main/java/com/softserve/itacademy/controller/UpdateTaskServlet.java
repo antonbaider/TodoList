@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet("/edit-task")
 public class UpdateTaskServlet extends HttpServlet {
@@ -40,18 +41,17 @@ public class UpdateTaskServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (task != null) {
-            task.setTitle(request.getParameter("name"));
-            task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
-            taskRepository.update(task);
-
-            response.sendRedirect("/tasks-list");
-
-        }else {
-            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            request.setAttribute("error", "Task with ID '" +
-                    taskId +"' not found in To-Do List!");
-            request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);
-
+            String title = request.getParameter("name");
+            if (!taskRepository.all().stream().anyMatch(t -> t.getTitle().equals(title))) {
+                task.setTitle(title);
+                task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
+                taskRepository.update(task);
+                response.sendRedirect("/tasks-list");
+            } else {
+                response.sendRedirect("/edit-task?id=" + taskId + "&error=duplicate");
+            }
+        } else {
+            response.sendRedirect("/edit-task?id=" + taskId + "&error=notfound");
         }
     }
 }

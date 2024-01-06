@@ -27,7 +27,7 @@ public class DeleteTaskServlet extends HttpServlet {
         if (taskId != null && !taskId.isEmpty() && (taskRepository.read(Integer.parseInt(taskId)) != null)) {
             taskRepository.delete(parseInt(taskId));
             try {
-                response.sendRedirect("/task-list");
+                response.sendRedirect("/tasks-list");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -17,6 +17,15 @@
     <%@include file="header.html"%>
     <br>
     <h2>Edit existing Task</h2>
+    <c:if test="${param.error eq 'duplicate'}">
+        <p class="error">Task with a given name already exists!</p>
+    </c:if>
+    <c:if test="${param.error eq 'invalid'}">
+        <p class="error">Invalid input</p>
+    </c:if>
+    <c:if test="${not empty requestScope.errorMessage}">
+        <p class="error">${requestScope.errorMessage}</p>
+    </c:if>
     <% Task task = TaskRepository.getTaskRepository().read(Integer.parseInt(request.getParameter("id"))); %>
     <% if (task != null) { %>
     <form action="/edit-task" method="post">
