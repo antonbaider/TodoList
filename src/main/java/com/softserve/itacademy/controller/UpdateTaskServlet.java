@@ -38,14 +38,20 @@ public class UpdateTaskServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        task.setTitle(request.getParameter("name"));
-        task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
-        taskRepository.update(task);
-        try {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (task != null) {
+            task.setTitle(request.getParameter("name"));
+            task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
+            taskRepository.update(task);
+
             response.sendRedirect("/tasks-list");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        }else {
+            //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            request.setAttribute("error", "Task with ID '" +
+                    taskId +"' not found in To-Do List!");
+            request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request,response);
+
         }
     }
 }

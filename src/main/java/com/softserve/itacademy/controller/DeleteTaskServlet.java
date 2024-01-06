@@ -1,5 +1,6 @@
 package com.softserve.itacademy.controller;
 
+import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.repository.TaskRepository;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static java.lang.Integer.parseInt;
 
 @WebServlet("/delete-task")
 public class DeleteTaskServlet extends HttpServlet {
@@ -19,17 +22,16 @@ public class DeleteTaskServlet extends HttpServlet {
         taskRepository = TaskRepository.getTaskRepository();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String taskId = request.getParameter("id");
-
         if (taskId != null && !taskId.isEmpty() && (taskRepository.read(Integer.parseInt(taskId)) != null)) {
-            taskRepository.delete(Integer.parseInt(taskId));
+            taskRepository.delete(parseInt(taskId));
             try {
                 response.sendRedirect("/task-list");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }   else {
+        } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             request.setAttribute("error", "Task with ID '" +
                     taskId +"' not found in To-Do List!");
