@@ -23,14 +23,17 @@
     <c:if test="${param.error eq 'invalid'}">
         <p class="error">Invalid input</p>
     </c:if>
+    <c:if test="${not empty requestScope.errorMessage}">
+        <p class="error">${requestScope.errorMessage}</p>
+    </c:if>
     <form action="/create-task" method="post">
         <label for="title">Name:</label>
-        <input type="text" id="title" name="title" required><br>
+        <input type="text" id="title" name="title" value="${not empty param.title ? param.title : ''}" required><br>
 
         <label for="priority">Priority:</label>
         <select id="priority" name="priority" required>
             <c:forEach var="priority" items="${requestScope.priorities}">
-                <option value="${priority}">${priority}</option>
+                <option value="${priority}" ${param.priority eq priority ? 'selected' : ''}>${priority}</option>
             </c:forEach>
         </select><br>
 

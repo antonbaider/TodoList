@@ -39,17 +39,21 @@ public class CreateTaskServlet extends HttpServlet {
                 if (taskRepository.create(newTask)) {
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.sendRedirect("/create-task?ok=success");
-                    return;
                 } else {
-                    response.setStatus(HttpServletResponse.SC_CONFLICT);
-                    response.sendRedirect("/create-task?error=duplicate");
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    request.setAttribute("priorities", Priority.values());
+                    request.setAttribute("errorMessage", "Task with a given name already exists!");
+                    request.getRequestDispatcher("/WEB-INF/pages/create-task.jsp").forward(request, response);
                     return;
                 }
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.sendRedirect("/create-task?error=invalid");
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
             }
+        } else {
+            response.sendRedirect("/create-task?error=invalid");
         }
-
-        response.sendRedirect("/create-task?error=invalid");
     }
 }
