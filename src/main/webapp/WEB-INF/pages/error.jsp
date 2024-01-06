@@ -10,11 +10,10 @@
     </style>
 
 </head>
-<body>
-<table>
+<body><div class="container">
     <%@include file="header.html" %>
-    <h1>Error</h1>
+    <div class="text">Error</div>
     <p>${error}</p>
-</table>
+</div>
 </body>
 </html>
