@@ -83,7 +83,6 @@ public class CreateTaskServletTest {
 
     @Test
     public void testValidGetRequest() {
-
         byte[] body = WebTestClient.bindToServer()
                 .baseUrl("http://localhost:" + WEB_PORT)
                 .build()
