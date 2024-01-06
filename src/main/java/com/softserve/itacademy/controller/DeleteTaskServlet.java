@@ -21,9 +21,9 @@ public class DeleteTaskServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         String taskId = request.getParameter("id");
-        taskRepository.delete(Integer.parseInt(taskId));
 
         if (taskId != null && !taskId.isEmpty() && (taskRepository.read(Integer.parseInt(taskId)) != null)) {
+            taskRepository.delete(Integer.parseInt(taskId));
             try {
                 response.sendRedirect("/task-list");
             } catch (IOException e) {
@@ -39,32 +39,5 @@ public class DeleteTaskServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-
-//        if (taskId != null && !taskId.isEmpty() && (taskRepository.read(Integer.parseInt(taskId)) != null)) {
-//            try {
-//                int id = Integer.parseInt(taskId);
-//                taskRepository.delete(id);
-//                response.getWriter().println("Task with ID " + id + " deleted successfully.");
-//            } catch (NumberFormatException | IOException e) {
-//                try {
-//                    response.getWriter().println("Invalid task ID provided.");
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//            }
-//        } else {
-//            try {
-//                response.getWriter().println("Task ID is missing in the request.");
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//        }
     }
-
-
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-//
-//    }
 }
