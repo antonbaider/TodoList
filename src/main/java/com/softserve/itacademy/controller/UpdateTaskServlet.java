@@ -42,13 +42,15 @@ public class UpdateTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (task != null) {
             String title = request.getParameter("name");
-            if (!taskRepository.all().stream().anyMatch(t -> t.getTitle().equals(title))) {
+            if (taskRepository.all().stream()
+                    .filter(t -> t.getId() != task.getId()) // Виключаємо поточний таск
+                    .anyMatch(t -> t.getTitle().equals(title))) {
+                response.sendRedirect("/edit-task?id=" + taskId + "&error=duplicate");
+            } else {
                 task.setTitle(title);
                 task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
                 taskRepository.update(task);
                 response.sendRedirect("/tasks-list");
-            } else {
-                response.sendRedirect("/edit-task?id=" + taskId + "&error=duplicate");
             }
         } else {
             response.sendRedirect("/edit-task?id=" + taskId + "&error=notfound");
