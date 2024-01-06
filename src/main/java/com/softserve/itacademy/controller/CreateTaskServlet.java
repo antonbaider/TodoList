@@ -23,6 +23,7 @@ public class CreateTaskServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("priorities", Priority.values());
         request.getRequestDispatcher("/WEB-INF/pages/create-task.jsp").forward(request, response);
     }

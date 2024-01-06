@@ -28,7 +28,8 @@
         for(Task task : (List<Task>)request.getAttribute("tasks")){
     %>
 
-    <tr>
+
+    <tr class="priority-<%=task.getPriority()%>">
         <td><%= task.getId()%></td>
         <td><%= task.getTitle()%></td>
         <td><%= task.getPriority()%></td>
@@ -45,7 +46,6 @@
     <%
         }
     %>
-
 </table>
 </div>
 </body>
