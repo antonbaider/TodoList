@@ -40,7 +40,6 @@
                 <div class="underline"></div>
             </div>
         </div>
-
         <br>
         <div class="form-row submit-btn">
             <div class="input-data">
