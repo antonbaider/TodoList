@@ -14,28 +14,43 @@
 
 </head>
 <body>
-    <%@include file="header.html"%>
-    <br>
-    <h2>Edit existing Task</h2>
+<div class="container">
+    <%@include file="header.html" %>
+    <div class="text">Edit existing Task</div>
     <% Task task = TaskRepository.getTaskRepository().read(Integer.parseInt(request.getParameter("id"))); %>
     <% if (task != null) { %>
     <form action="/edit-task" method="post">
-        <label for="id">Id:</label>
-        <input type="text" id="id" name="id" value="<%= task.getId() %>" disabled><br>
-
-        <label for="name">Name:</label>
+        <div class="form-row">
+            <div class="input-data">
+                <div class="underline"></div>
+                <input type="text" id="id" name="id" value="<%= task.getId() %>" disabled><br>
+            </div>
+            <div class="input-data">
+                <div class="underline"></div>
         <input type="text" id="name" name="name" value="<%= task.getTitle() %>" required><br>
-
-        <label for="priority">Priority:</label>
+                <label for="name">Name:</label>
+            </div>
+            <div class="input-data">
+                <br> <label for="priority">Priority:</label>
         <select id="priority" name="priority" required>
             <c:forEach var="priority" items="${requestScope.priorities}">
                 <option value="${priority}" ${priority eq task.getPriority() ? 'selected' : ''}>${priority}</option>
             </c:forEach>
-        </select><br>
+        </select>
+                <div class="underline"></div>
+            </div>
+        </div>
 
-        <button type="submit">Update Task</button>
+        <br>
+        <div class="form-row submit-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <input type="submit" value="update">
+            </div>
+        </div>
     </form>
     <% } %>
-
+    <div class="underline"></div>
+</div>
 </body>
 </html>

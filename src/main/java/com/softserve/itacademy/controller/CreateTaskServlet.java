@@ -28,6 +28,7 @@ public class CreateTaskServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String title = request.getParameter("title");
         String priorityParam = request.getParameter("priority");
 

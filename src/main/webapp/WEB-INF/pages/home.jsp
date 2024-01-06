@@ -9,7 +9,10 @@
 
 </head>
 <body>
-    <%@include file="header.html"%>
-    <h2>Welcome to awesome To-Do List!!!</h2>
+
+    <div class="container">
+        <%@include file="header.html"%>
+        <div class="text">Welcome to awesome To-Do List!</div>
+    </div>
 </body>
 </html>

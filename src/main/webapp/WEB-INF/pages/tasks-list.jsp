@@ -12,11 +12,11 @@
 
 </head>
 <body>
-<%@include file="header.html"%>
+<div class="container">
+    <%@include file="header.html" %>
+    <div class="text">List of Tasks</div>
 
-<h2>List of Tasks</h2>
-
-<table border="1">
+<table class="table">
     <tr>
         <th>ID</th>
         <th>Title</th>
@@ -47,6 +47,6 @@
     %>
 
 </table>
-
+</div>
 </body>
 </html>

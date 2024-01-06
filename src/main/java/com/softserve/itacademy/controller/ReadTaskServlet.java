@@ -28,6 +28,7 @@ public class ReadTaskServlet extends HttpServlet {
                 Task task = taskRepository.read(taskId);
                 if (task != null) {
                     request.setAttribute("task", task);
+                    response.setStatus(HttpServletResponse.SC_OK);
                     request.getRequestDispatcher("/WEB-INF/pages/read-task.jsp").forward(request, response);
                 } else {
                     String errorMessage = "Task with ID '" + taskIdParam + "' not found in To-Do List!";

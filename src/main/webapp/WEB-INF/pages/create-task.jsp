@@ -15,11 +15,10 @@
     
 </head>
 <body>
-    <%@include file="header.html"%>
-    <h2>Create a New Task</h2>
-    <c:if test="${param.error eq 'duplicate'}">
-        <p class="error">Task with a given name already exists!</p>
-    </c:if>
+
+<div class="container">
+    <%@include file="header.html" %>
+    <div class="text">Create a New Task</div>
     <c:if test="${param.error eq 'invalid'}">
         <p class="error">Invalid input</p>
     </c:if>
@@ -27,29 +26,41 @@
         <p class="error">${requestScope.errorMessage}</p>
     </c:if>
     <form action="/create-task" method="post">
-        <label for="title">Name:</label>
-        <input type="text" id="title" name="title" value="${not empty param.title ? param.title : ''}" required><br>
-
-        <label for="priority">Priority:</label>
+        <div class="form-row">
+            <div class="input-data">
+                <input type="text" id="title" name="title" value="${not empty param.title ? param.title : ''}" required><br>
+                <div class="underline"></div>
+                <label for="title">Name:</label>
+            </div>
+            <div class="input-data">
+                <br> <label for="priority">Priority:</label>
         <select id="priority" name="priority" required>
             <c:forEach var="priority" items="${requestScope.priorities}">
                 <option value="${priority}" ${param.priority eq priority ? 'selected' : ''}>${priority}</option>
             </c:forEach>
-        </select><br>
+        </select>
+                <div class="underline"></div>
 
-        <button type="submit">Create Task</button>
+            </div>
+        </div>
+
+        <div class="form-row submit-btn">
+            <div class="input-data">
+                <div class="inner"></div>
+                <input type="submit" value="create">
+            </div>
+        </div>
     </form>
 
 <c:if test="${param.ok eq 'success'}">
-    <table><p class="success">Task added successfully!</p>
-        <thead><div class="success">
+    <table class="table"><p class="success">Task added successfully!</p>
+        <div class="success">
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Priority</th>
         </tr></div>
-        </thead>
-        <tbody>
+
         <% Task lastTask = TaskRepository.getTaskRepository().all().stream().reduce((first, second) -> second).orElse(null); %>
         <% if (lastTask != null) { %>
 
@@ -64,8 +75,9 @@
             <td colspan="3">No tasks available.</td>
         </tr>
         <% } %>
-        </tbody>
+
     </table>
 </c:if>
+</div>
 </body>
 </html>

@@ -9,26 +9,28 @@
     </style>
 
 </head>
-<body><h2>Read existing Task</h2>
-<table>
+<body><div class="container">
     <%@include file="header.html"%>
+    <div class="text">Read existing Task</div>
 
-        <table>
-            <thead>
+
+
+    <table class="table">
+
             <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Priority</th>
             </tr>
-            </thead>
-            <tbody>
+
+
             <tr>
                 <td>${task.id}</td>
                 <td>${task.title}</td>
                 <td>${task.priority}</td>
             </tr>
-            </tbody>
-        </table>
 
+        </table>
+</div>
 </body>
 </html>

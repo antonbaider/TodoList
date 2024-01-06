@@ -102,7 +102,7 @@ public class ReadTaskServletTest {
                 .baseUrl("http://localhost:" + WEB_PORT)
                 .build()
                 .method(HttpMethod.GET)
-                .uri("/read-task?id=3")
+                .uri("/read-task?id=33")
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectHeader().contentType("text/html;charset=UTF-8")
@@ -112,12 +112,12 @@ public class ReadTaskServletTest {
         Assert.assertTrue(body.length > 0);
 
         String strBody = new String(body);
-        Assert.assertTrue("Expected message 'Task with ID '3' not found in To-Do List!'", strBody.contains("Task with ID '3' not found in To-Do List!"));
+        Assert.assertTrue("Expected message 'Task with ID '33' not found in To-Do List!'", strBody.contains("Task with ID '33' not found in To-Do List!"));
     }
 
     @Test
     public void testCorrectTaskRead() throws ServletException, IOException {
-        when(request.getParameter("id")).thenReturn("3");
+        when(request.getParameter("id")).thenReturn("33");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         when(taskRepository.read(anyInt())).thenReturn(new Task());
 
