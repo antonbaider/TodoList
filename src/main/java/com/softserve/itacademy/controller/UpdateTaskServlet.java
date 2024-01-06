@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet("/edit-task")
 public class UpdateTaskServlet extends HttpServlet {
@@ -38,14 +39,21 @@ public class UpdateTaskServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        task.setTitle(request.getParameter("name"));
-        task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
-        taskRepository.update(task);
-        try {
-            response.sendRedirect("/tasks-list");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (task != null) {
+            String title = request.getParameter("name");
+            if (taskRepository.all().stream()
+                    .filter(t -> t.getId() != task.getId()) // Виключаємо поточний таск
+                    .anyMatch(t -> t.getTitle().equals(title))) {
+                response.sendRedirect("/edit-task?id=" + taskId + "&error=duplicate");
+            } else {
+                task.setTitle(title);
+                task.setPriority(Priority.valueOf(request.getParameter("priority").toUpperCase()));
+                taskRepository.update(task);
+                response.sendRedirect("/tasks-list");
+            }
+        } else {
+            response.sendRedirect("/edit-task?id=" + taskId + "&error=notfound");
         }
     }
 }
